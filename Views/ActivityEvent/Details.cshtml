@@ -1,0 +1,32 @@
+@model ActivityEvent
+
+<div class="card mx-auto text-center mb-3" style="width: 25rem;">
+  <div class="card-header">
+    <h5 class="card-title">
+      @Model.ActivityType
+    </h5>
+  </div>
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Event Coordinator: @Model.EventCoordinator.FullName()</h6>
+  </div>
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Description: </h6>
+    <p>
+      @Model.Description
+    </p>
+  </div>
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Participants: </h6>
+    @foreach(var participant in Model.Participants){
+    <p>
+      @participant.user.FullName()
+    </p>
+    }
+  </div>
+
+  <div class="card-footer">
+    <a asp-controller="ActivityEvent" asp-action="Dashboard" class="btn btn-info">
+      Back
+    </a>
+  </div>
+</div>

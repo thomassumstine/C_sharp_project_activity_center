@@ -1,0 +1,35 @@
+@model ActivityEvent
+<a asp-action="logout" asp-controller="Home">LOGOUT</a>
+<a asp-controller="ActivityEvent" asp-action="Dashboard" class="btn btn-info">Back</a>
+<div class="container" style="padding-top: 5rem; margin: 0 auto;">
+    <form asp-action="AddNewActivityEvent" asp-controller="ActivityEvent" method="post">
+        <div class="form-group">
+            <span asp-validation-for="ActivityType"></span>
+            <input asp-for="ActivityType" placeholder="Enter Activity Type:">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Date"></span>
+            <input asp-for="Date">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Time"></span>
+            <input asp-for="Time">
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="Description"></span>
+            <input asp-for="Description" placeholder="Enter Description:">
+        </div>
+        <div class="form-group"></div>
+            <span asp-validation-for="Duration"></span>
+            <input asp-for="Duration" placeholder="Enter Duration: ">
+        </div>
+        <div class="form-group"></div>
+            <select asp-for="DurationTimeUnit">
+                <option value="Minutes">Minutes</option>
+                <option value="Hours">Hours</option>
+                <option value="Days">Days</option>
+            </select>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</div>

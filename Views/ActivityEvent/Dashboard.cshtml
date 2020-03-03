@@ -1,0 +1,58 @@
+@model List<ActivityEvent>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a asp-action="create" asp-controller="ActivityEvent">Create</a>
+    <a asp-action="logout" asp-controller="Home">LOGOUT</a>
+    <p>Welcome @ViewBag.user.FirstName!</p>
+        <table class="table">
+        <thead class="thead-dark">
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>Number of Participants</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            @foreach(ActivityEvent currentActivityEvent in Model){
+            int eventCoordinatorId = currentActivityEvent.EventCoordinatorId;
+            int userId = ViewBag.user.UserId;
+            <tr>
+                <td><a asp-action="details" asp-controller="ActivityEvent" asp-route-id="@currentActivityEvent.ActivityEventId">@currentActivityEvent.ActivityType</a></td>
+                <td>@currentActivityEvent.Date.ToString("MM-dd-yy") @currentActivityEvent.Time.ToString("hh:mm tt")</td>
+                <td>@currentActivityEvent.Duration @currentActivityEvent.DurationTimeUnit</td>
+                <td>@currentActivityEvent.EventCoordinator.FullName()</td>
+                <td>@currentActivityEvent.Participants.Count</td>
+                <td>@if(eventCoordinatorId == userId){
+                        <a asp-action="delete" asp-controller="ActivityEvent" asp-route-activityEventId="@currentActivityEvent.ActivityEventId">Delete</a>
+                    }else{
+                        bool attend = false;
+                        @foreach(var user in @currentActivityEvent.Participants){
+                            if(user.user !=null){
+                                if(user.user.UserId == ViewBag.user.UserId){
+                                    attend = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(attend){
+                            <a asp-action="leave" asp-controller="ActivityEvent" asp-route-activityEvtIdToLeave="@currentActivityEvent.ActivityEventId">Leave</a>
+                        }else{
+                            <a asp-action="join" asp-controller="ActivityEvent" asp-route-activityEventId="@currentActivityEvent.ActivityEventId">Join</a>
+                        }
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
