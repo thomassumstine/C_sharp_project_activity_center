@@ -1,3 +1,3 @@
 # C_sharp_project_activity_center
 CRUD application
-Stack: C#, ASP.Net Core, Entity Framework
+Stack: C#, ASP.Net Core, Entity Framework, MySQL
